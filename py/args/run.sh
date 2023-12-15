@@ -6,6 +6,6 @@ vp main.py
 echo "=== --help =================================================================="
 vp main.py --help
 echo "=== example 1================================================================"
-vp main.py --bla1 123 --bla1 124 1 2 3
+vp main.py --blamusthave okay --bla1 123 1 2 3
 
 read
