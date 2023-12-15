@@ -1,5 +1,6 @@
 <?php
 
+
 try {
     $D = new PDO('mysql:host=host.docker.internal;dbname=test;port=33060', 'root', 'foo123');
     echo "ok\n";
