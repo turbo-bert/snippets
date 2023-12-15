@@ -1,6 +1,6 @@
 import argparse
 
-parser = argparse.ArgumentParser(description="description without newlines")
+parser = argparse.ArgumentParser(description="description without newlines", epilog="The epilog")
 parser.add_argument("pos1", metavar="POS_1", type=str, help="Help for POS_1, type=str")
 parser.add_argument("pos2", metavar="POS_2", type=int, help="Help for POS_2, type=int")
 parser.add_argument("pos3", metavar="POS_3", type=float, help="Help for POS_3, type=float")
