@@ -1,0 +1,6 @@
+#!/bin/bash
+
+MOST_RECENT_FILE=$(ls -1t | head -1)
+echo "$MOST_RECENT_FILE"
+echo -n "$MOST_RECENT_FILE" | pbcopy
+say copied
