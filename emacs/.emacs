@@ -1,0 +1,7 @@
+(setq-default org-export-html-postamble-format 'nil)
+(setq org-export-html-postamble-format 'nil)
+(setq-default make-backup-files 'nil)
+(global-set-key [f12] 'org-insert-structure-template)
+(global-set-key [f11] 'org-html-export-to-html)
+(global-set-key [f9] 'org-ascii-export-to-ascii)
+(require 'org-tempo)
