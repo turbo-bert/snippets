@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo "Create/Overwrite run.sh?"
+read CONTINUE
+
+echo -en "#!/bin/bash\n\n\ncurl -C - -L -o '' ''\n" >run.sh
+chmod a+x run.sh

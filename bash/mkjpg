@@ -1,0 +1,16 @@
+#!/bin/bash
+
+
+if [[ ! -z $1 ]]; then
+    echo "\\includegraphics[width=\\textwidth]{$1}\\clearpage" >> main.tex
+    echo "" >>main.tex
+    exit 0
+fi
+
+echo "joi jpg files to fast tex main.tex?"
+read CONFIRM
+
+cat /dev/null> main.tex
+echo '\newgeometry{left=0mm,top=0mm,bottom=0mm,right=0mm}' >>main.tex
+
+gfind . -iname "*.jpg" | sort | gxargs -rn1 bash $0
