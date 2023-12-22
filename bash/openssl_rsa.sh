@@ -2,6 +2,7 @@
 
 
 #openssl base64 -d -in BASE64SIGFILE -out BINSIG
+#openssl base64 -e -in bla -out bla64
 
 
 openssl genrsa 8192 >key_8k
