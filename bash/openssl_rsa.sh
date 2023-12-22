@@ -1,6 +1,9 @@
 #!/bin/bash
 
 
+#openssl base64 -d -in BASE64SIGFILE -out BINSIG
+
+
 openssl genrsa 8192 >key_8k
 openssl rsa -in key_8k -pubout >pubout
 
