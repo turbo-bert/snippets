@@ -9,3 +9,5 @@ if os.path.isdir("bla"):
 if os.path.isfile("bla"):
     logging.error("File exists")
     sys.exit(1)
+
+os.makedirs(dcx_out, exist_ok=True)
