@@ -1,0 +1,1 @@
+powershell -Command "Get-Filehash -Algorithm sha512 ___THEFILE___ | select -property hash | Format-Table -Autosize -hidetableheaders"
