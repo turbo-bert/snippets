@@ -8,5 +8,6 @@ msg["subject"] = "bla2"
 msg["to"] = "who@else.com"
 
 server = smtplib.SMTP_SSL("mail:465")
+server.login('u', 'pw')
 server.send_message(msg)
 server.quit()
