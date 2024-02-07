@@ -1,6 +1,6 @@
 default:
-        ac compile --fqbn arduino:avr:uno Main
-        ac upload --fqbn arduino:avr:uno -p /dev/ttyACM0 Main
+	ac compile --fqbn arduino:avr:uno Main
+	ac upload --fqbn arduino:avr:uno -p /dev/ttyACM0 Main
 
 install:
 	curl -L -o site.html 'https://arduino.github.io/arduino-cli/0.35/installation/'
@@ -8,7 +8,7 @@ install:
 	echo "tar cvfz that single executable into /usr/local/bin/ac manually"
 
 init:
-        ac core update-index
-        ac board list
-        ac core install arduino:avr
-        ac core list
+	ac core update-index
+	ac board list
+	ac core install arduino:avr
+	ac core list
