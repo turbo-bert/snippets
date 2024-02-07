@@ -12,3 +12,7 @@ init:
 	ac board list
 	ac core install arduino:avr
 	ac core list
+
+cat:
+	stty -F /dev/ttyACM0 raw 9600
+	cat /dev/ttyACM0
