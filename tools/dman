@@ -39,12 +39,51 @@ fi
 TARGET_DISK=$X
 
 exec 3>&1
-X=$(dialog --menu "Main menu" 0 0 0 disk-empty-2G "Clearing disks beginning 2G..." copy-to-disk "Copy image file to disk" 2>&1 1>&3)
+X=$(dialog --menu "Main menu" 0 0 0 disk-empty-2G "Clearing disks beginning 2G..." copy-to-disk "Copy image file to disk" ubuntu-ssh-provision "copy 'root.pub' to disk and enable ssh in /boot" 2>&1 1>&3)
 Y=$?
 exec 3>&-
 
 if [[ $Y = 0 ]]; then
     echo "ok choice is $X"
+
+    if [[ $X = ubuntu-ssh-provision ]]; then
+	if [[ ! -f root.pub ]]; then
+	    echo -n "root.pub missing, press RETURN to continue"
+	    read
+	    exit 0
+	else
+	    if [[ -f m ]]; then
+		echo -n "ERR: file 'm' is in the way for my mount point, press RETURN to continue"
+		read
+		exit 1
+	    fi
+	    if [[ -d m ]]; then
+		echo -n "ERR: directory 'm' is in the way for my mount point, press RETURN to continue"
+		read
+		exit 1
+	    fi
+	    set -x
+	    mkdir m
+
+	    mount ${TARGET_DISK}1 m
+	    touch m/ssh
+	    umount m
+
+	    mount ${TARGET_DISK}2 m
+	    mkdir -p m/root/.ssh
+	    chmod og-rwx m/root/.ssh
+	    cat root.pub >m/root/.ssh/authorized_keys
+	    umount m
+
+	    ls -al m
+	    set +x
+	    echo -n "Done, press RETURN to continue (and clean up ad hoc mountpoint 'm')"
+	    read
+	    rm -fr m
+	    sync
+	    exit 0
+	fi
+    fi
 
     if [[ $X = disk-empty-2G ]]; then
 	echo -n "Press RETURN to: kill the first 2G of $TARGET_DISK - or CTRL-C to abort"
