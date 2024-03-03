@@ -37,9 +37,10 @@ if [[ ! $Y = 0 ]]; then
 fi
 
 TARGET_DISK=$X
+BBASE=$(echo -n $TARGET_DISK | tail -c +2 | tr '/' '-')
 
 exec 3>&1
-X=$(dialog --menu "Main menu" 0 0 0 disk-empty-2G "Clearing disks beginning 2G..." copy-to-disk "Copy image file to disk" ubuntu-ssh-provision "copy 'root.pub' to disk and enable ssh in /boot" 2>&1 1>&3)
+X=$(dialog --menu "Main menu" 0 0 0 disk-empty-2G "Clearing disks beginning 2G..." copy-to-disk "Copy image file to $TARGET_DISK" backup-disk "Create $BBASE.img.gz from $TARGET_DISK" ubuntu-ssh-provision "copy 'root.pub' to disk and enable ssh in /boot" 2>&1 1>&3)
 Y=$?
 exec 3>&-
 
@@ -90,6 +91,20 @@ if [[ $Y = 0 ]]; then
 	read
 	set -x
 	dd if=/dev/zero of=$TARGET_DISK bs=1M count=2000 status=progress
+	set +x
+	echo -n "Done, press RETURN to continue"
+	exit 0
+    fi
+
+    if [[ $X = backup-disk ]]; then
+	if [[ -f $BBASE.img.xz ]]; then
+	    echo "file $BBASE.img.xz exists, aborting"
+	    exit 1
+	fi
+	echo -n "Press RETURN to start backup - or CTRL-C to abort ($BBASE)"
+	read
+	set -x
+	pv $TARGET_DISK | dd bs=32M oflag=sync | gzip -c >$BBASE.img.gz
 	set +x
 	echo -n "Done, press RETURN to continue"
 	exit 0
