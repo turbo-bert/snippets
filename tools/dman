@@ -40,7 +40,7 @@ TARGET_DISK=$X
 BBASE=$(echo -n $TARGET_DISK | tail -c +2 | tr '/' '-')
 
 exec 3>&1
-X=$(dialog --menu "Main menu" 0 0 0 disk-empty-2G "Clearing disks beginning 2G..." copy-to-disk "Copy image file to $TARGET_DISK" backup-disk "Create $BBASE.img.gz from $TARGET_DISK" ubuntu-ssh-provision "copy 'root.pub' to disk and enable ssh in /boot" 2>&1 1>&3)
+X=$(dialog --menu "Main menu" 0 0 0 disk-empty-2G "Clearing disks beginning 2G..." disk-empty "Clear FULL disk" copy-to-disk "Copy image file to $TARGET_DISK" backup-disk "Create $BBASE.img.gz from $TARGET_DISK" ubuntu-ssh-provision "copy 'root.pub' to disk and enable ssh in /boot" 2>&1 1>&3)
 Y=$?
 exec 3>&-
 
@@ -90,7 +90,17 @@ if [[ $Y = 0 ]]; then
 	echo -n "Press RETURN to: kill the first 2G of $TARGET_DISK - or CTRL-C to abort"
 	read
 	set -x
-	dd if=/dev/zero of=$TARGET_DISK bs=1M count=2000 status=progress oflag=sync
+	dd if=/dev/zero of=$TARGET_DISK bs=32M count=2000 status=progress oflag=sync
+	set +x
+	echo -n "Done, press RETURN to continue"
+	exit 0
+    fi
+
+    if [[ $X = disk-empty ]]; then
+	echo -n "Press RETURN to: kill the WHOLE disk $TARGET_DISK - or CTRL-C to abort"
+	read
+	set -x
+	dd if=/dev/zero of=$TARGET_DISK bs=32M status=progress oflag=sync
 	set +x
 	echo -n "Done, press RETURN to continue"
 	exit 0
