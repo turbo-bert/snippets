@@ -90,7 +90,7 @@ if [[ $Y = 0 ]]; then
 	echo -n "Press RETURN to: kill the first 2G of $TARGET_DISK - or CTRL-C to abort"
 	read
 	set -x
-	dd if=/dev/zero of=$TARGET_DISK bs=32M count=2000 status=progress oflag=sync
+	dd if=/dev/zero of=$TARGET_DISK bs=32M count=64 status=progress oflag=sync
 	set +x
 	echo -n "Done, press RETURN to continue"
 	exit 0
