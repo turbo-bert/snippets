@@ -6,6 +6,8 @@
 
 # dependencies: dialog pv
 
+# curl -L -O 'https://cdimage.ubuntu.com/releases/23.10/release/ubuntu-23.10-preinstalled-server-arm64+raspi.img.xz'
+
 
 DL=/tmp/disklist
 DL_DEVS=/tmp/disklist.devices
