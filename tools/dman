@@ -40,7 +40,7 @@ TARGET_DISK=$X
 BBASE=$(echo -n $TARGET_DISK | tail -c +2 | tr '/' '-')
 
 exec 3>&1
-X=$(dialog --menu "Main menu" 0 0 0 \
+X=$(dialog --menu "Main menu for [ $TARGET_DISK ]" 0 0 0 \
 	   disk-empty-2G "Clearing disks beginning 2G..." \
 	   disk-empty "Clear FULL disk"\
 	   copy-to-disk "Copy image file to $TARGET_DISK" \
