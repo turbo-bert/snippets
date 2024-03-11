@@ -9,6 +9,7 @@ EOF
 
 cat >/etc/systemd/system/getty@tty1.service.d/nologin.conf <<"EOF"
 [Service]
+StartLimitInterval=0
 ExecStartPre=/bin/sh -c 'setleds -D +num < /dev/%I'
 ExecStart=
 ExecStart=-/sbin/agetty --autologin root -l /usr/local/bin/my-getty.sh --noclear %I $TERM
