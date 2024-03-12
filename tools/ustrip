@@ -1,0 +1,10 @@
+#!/opt/homebrew/bin/python3
+
+import sys
+
+data = sys.stdin.read()
+for c in data:
+    if ord(c) <= 255:
+        sys.stdout.write(c)
+    else:
+        sys.stdout.write("_")
