@@ -1,0 +1,63 @@
+https://support.microsoft.com/en-us/topic/kb5028997-instructions-to-manually-resize-your-partition-to-install-the-winre-update-400faa27-9343-461c-ada9-24c8229763bf
+
+
+* Open CMD as Administrator
+
+* Check RE Agent
+
+reagentc /info
+
+* Disable RE
+
+reagentc /disable
+
+diskpart
+
+list disk
+
+sel disk 0
+
+list part
+
+* Select OS Partition to shrink free space
+
+sel part 1
+
+shrink desired=500 minimum=500
+
+* Select Recovery Partition
+
+sel part 3
+
+delete partition override
+
+* check mbr or gpt
+
+list disk
+
+asterisk in GPT col?
+
+* for mbr
+
+create partition primary id=27
+
+* for gpt
+
+create partition primary id=de94bba4-06d1-4d40-a16a-bfd50179d6ac
+gpt attributes=0x8000000000000001
+
+* check partition
+
+list part
+
+still selected
+
+* format re partition
+
+format quick fs=ntfs label="Windows RE tools"
+
+list vol
+
+exit
+
+reagentc /enable
