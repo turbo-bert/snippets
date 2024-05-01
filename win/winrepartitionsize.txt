@@ -23,6 +23,8 @@ list part
 
 sel part 1
 
+sel part 2
+
 shrink desired=500 minimum=500
 
 * Select Recovery Partition
