@@ -21,4 +21,4 @@ F2="/System/Library/Fonts/Supplemental/DIN Alternate Bold.ttf"
 F1="/System/Library/Fonts/Supplemental/Tahoma.ttf"
 ffmpeg -i $SRC \
     -vf "drawtext=fontfile=$F1:text='[${location_spec}] [${dur_spec}] [${creation_time}Z] [%{pts}s]':fontcolor=white:fontsize=18:box=1:boxcolor=black@0.5:boxborderw=15:x=10:y=25" \
-    -t 00:00:15 -y test.mp4
+    -y $1.mp4
