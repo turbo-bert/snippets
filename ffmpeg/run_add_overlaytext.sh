@@ -1,8 +1,10 @@
 #!/bin/bash
 
 
-SRC=$1
-
+SRC=${1:-PC000005.MP4}
+TITLE=${2:-Video Log}
+ONLY="-t 00:00:10"
+ONLY=""
 
 creation_time=$(ffmpeg -i $SRC 2>&1 | grep creation_time | head -1 | sed -E 's/.* ([^ ]+)/\1/g' | cut -d '.' -f 1 | tr ':' '-' | tr 'T' ' ')
 
@@ -20,5 +22,10 @@ read
 F2="/System/Library/Fonts/Supplemental/DIN Alternate Bold.ttf"
 F1="/System/Library/Fonts/Supplemental/Tahoma.ttf"
 ffmpeg -i $SRC \
-    -vf "drawtext=fontfile=$F1:text='[${location_spec}] [${dur_spec}] [${creation_time}Z] [%{pts}s]':fontcolor=white:fontsize=18:box=1:boxcolor=black@0.5:boxborderw=15:x=10:y=25" \
-    -y $1.mp4
+    -vf "drawtext=fontfile=$F1:text='[${location_spec}] [${dur_spec}] [${creation_time}Z] [%{pts}s]':fontcolor=white:fontsize=18:box=1:boxcolor=black@0.5:boxborderw=15:x=10:y=25,drawtext=fontfile=$F1:text='$TITLE':fontcolor=white:fontsize=18:box=1:boxcolor=black@0.5:boxborderw=15:x=10:y=80" \
+    -vb 650k \
+    -ac 1 \
+    -y $ONLY $SRC.encoded.mp4
+
+
+#    -t 00:00:15 \
