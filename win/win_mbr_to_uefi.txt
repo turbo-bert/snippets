@@ -1,0 +1,15 @@
+https://answers.microsoft.com/en-us/windows/forum/all/convert-an-existing-windows-10-installation-from/aa8c2de3-460b-4a8c-b30b-641405f800d7
+https://wiki.ubuntuusers.de/virt-manager_-_UEFI_und_Secure_Boot_verwenden/
+
+From Lock Screen Shift Restart into Troubleshooting/Command Prompt
+
+<feat
+    <smm state='on'/>
+
+  <os>
+    <type arch='x86_64' machine='pc-q35-7.2'>hvm</type>
+    <loader readonly='yes' secure='yes' type='pflash'>/usr/share/OVMF/OVMF_CODE_4M.ms.fd</loader>
+    <nvram template='/usr/share/OVMF/OVMF_VARS_4M.ms.fd'>/var/lib/libvirt/qemu/nvram/win11_VARS.fd</nvram>
+    <boot dev='hd'/>
+  </os>
+
