@@ -1,0 +1,28 @@
+participant User order 1
+participant FW order 2
+participant FW_iptables order 3
+participant FW_haproxy order 4
+participant App_Server order 5
+
+
+autonumber "[00]"
+
+group config
+    note over config
+    config
+    stuff
+    end note
+
+FW -> FW: IPTables geoip
+FW -> FW: HAProxy
+
+end group
+
+User -> FW: TCP/80,443 OPEN...
+FW -> FW_iptables: Check GEO
+FW_iptables -> User: [if denied DROP]
+FW_iptables -> FW_haproxy: [if allowed ACCEPT]
+FW_haproxy -> App_Server: [forward tcp]\nlayer-7 proxy software
+FW_haproxy <- App_Server:
+FW_haproxy -> User:
+

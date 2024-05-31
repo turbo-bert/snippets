@@ -1,0 +1,18 @@
+entity "domain_config" as dc {
+    *id : INT (PK)
+    --
+    optional
+    **non optional**
+}
+
+entity "domain_config2" as dc2 {
+    *id : INT (PK)
+    --
+    optional
+    **non optional**
+    **2ndary**
+}
+
+
+dc2 -> dc: [2ndary - id]
+dc2 -> dc: [3ndary - id]
