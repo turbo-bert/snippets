@@ -4,6 +4,25 @@ import datetime
 import subprocess
 
 
+class TurboCrapCommand(sublime_plugin.TextCommand):
+
+    def run(self, edit):
+        for region in self.view.sel():
+            self.handle_region(edit, region)
+
+    def handle_region(self, edit, region):
+        x = self.view.substr(region)
+        res = ""
+        import textwrap
+        for i in range(1,10):
+            x = x.replace("\n\n\n", "\n\n")
+        blocks = x.split("\n\n")
+        for block in blocks:
+            res_block = "\n".join(textwrap.wrap(text=block, width=65)) + "\n\n"
+            res += res_block
+        self.view.replace(edit, region, res)
+
+
 class TurboBaseCommand(sublime_plugin.TextCommand):
 
     def run(self, edit):
