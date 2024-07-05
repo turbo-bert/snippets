@@ -9,7 +9,7 @@ systemctl restart rsyslog
 
 *.* @@10.0.0.2:514
 
-*.* action(type="omwfd" target="docker.host.internal" port="10514" protocol="tcp")
+*.* action(type="omfwd" target="docker.host.internal" port="10514" protocol="tcp")
 
 ufw allow from 10.0.0.0/16 to any port 514
 tail -f /var/log/syslog
