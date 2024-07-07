@@ -6,7 +6,13 @@ RES_DEBIAN="unknown"
 RES_PYPI="unknown"
 
 
-N=${1:-ls}
+N=$1
+
+if [[ -z $N ]]; then
+    echo -en "input: "
+    read N
+fi
+
 
 # debian check
 
@@ -37,3 +43,7 @@ fi
 
 
 set | grep ^RES_
+
+echo ""
+echo -en "Press RETURN to continue"
+read
