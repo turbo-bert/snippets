@@ -28,3 +28,7 @@ t_test = Src_Base.classes.test
 x = t_test(name="oink")
 src_session.add(x)
 src_session.commit()
+
+
+
+#src_session.add(TABLE_artcl(title="bla", t=datetime.datetime.now(tz=datetime.timezone.utc)))
