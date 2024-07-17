@@ -4,6 +4,9 @@
 import pymongo
 import bson
 import sys
+import os
+from bson.objectid import ObjectId
+
 
 client = pymongo.MongoClient("mongodb://root:foo123@localhost:27017")
 
