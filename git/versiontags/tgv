@@ -2,7 +2,7 @@
 
 import subprocess
 import json
-
+import os
 
 def version_tag_string_ok(src):
     src = src.replace(".", "")
@@ -43,19 +43,26 @@ rev = 0
 v = ""
 
 for k in sorted_items_keys:
-    print(to_sort[k]['v'])
+    #print(to_sort[k]['v'])
     v = to_sort[k]['v']
     ma = to_sort[k]['ma']
     ma = to_sort[k]['ma']
     mi = to_sort[k]['mi']
     rev = to_sort[k]['rev']
 
+print("*"*60)
 print()
-print("Latest Version was %s" % v)
+print("Latest REMOTE Version for [%s] is:" % os.getcwd())
+print("%d.%d.%d" % (ma, mi, rev))
 print()
-print("next rev:")
+print("*"*60)
+print()
+print("NEXT rev would be:")
 print("%d.%d.%d" % (ma, mi, rev+1))
-print("next minor:")
+print()
+print("NEXT minor would be:")
 print("%d.%d.%d" % (ma, mi+1, 0))
-print("next major:")
+print()
+print("NEXT major would be:")
 print("%d.%d.%d" % (ma+1, 0, 0))
+print("*"*60)
