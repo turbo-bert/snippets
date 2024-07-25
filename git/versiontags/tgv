@@ -1,0 +1,61 @@
+#!/usr/bin/env python3
+
+import subprocess
+import json
+
+
+def version_tag_string_ok(src):
+    src = src.replace(".", "")
+    src = src.replace("0", "")
+    src = src.replace("1", "")
+    src = src.replace("2", "")
+    src = src.replace("3", "")
+    src = src.replace("4", "")
+    src = src.replace("5", "")
+    src = src.replace("6", "")
+    src = src.replace("7", "")
+    src = src.replace("8", "")
+    src = src.replace("9", "")
+    return src == ""
+
+
+lines = subprocess.check_output("""git ls-remote --tags 2>/dev/null | tr '\t' ' ' | grep "refs/tags/" | tr ' ' '/'""", shell=True, universal_newlines=True).strip().split("\n")
+
+to_sort = {}
+for line in lines:
+    cols = line.split("/")
+    h = cols[0]
+    vstring = cols[3]
+    if version_tag_string_ok(vstring) == False:
+        continue
+    ma, mi, rev = vstring.split(".")[0:3]
+    sort_key = "%08d-%08d-%08d" % (int(ma), int(mi), int(rev))
+    #print(sort_key)
+    to_sort[sort_key] = {'hash': h, 'v': vstring, "ma": int(ma), "mi": int(mi), "rev": int(rev)}
+
+
+sorted_items_keys = list(sorted(to_sort.keys()))
+
+# guess new version
+ma = 0
+mi = 0
+rev = 0
+v = ""
+
+for k in sorted_items_keys:
+    print(to_sort[k]['v'])
+    v = to_sort[k]['v']
+    ma = to_sort[k]['ma']
+    ma = to_sort[k]['ma']
+    mi = to_sort[k]['mi']
+    rev = to_sort[k]['rev']
+
+print()
+print("Latest Version was %s" % v)
+print()
+print("next rev:")
+print("%d.%d.%d" % (ma, mi, rev+1))
+print("next minor:")
+print("%d.%d.%d" % (ma, mi+1, 0))
+print("next major:")
+print("%d.%d.%d" % (ma+1, 0, 0))
