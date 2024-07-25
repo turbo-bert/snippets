@@ -25,7 +25,7 @@ to_sort = {}
 for line in lines:
     cols = line.split("/")
     h = cols[0]
-    vstring = cols[3]
+    vstring = cols[3] + ".0.0"
     if version_tag_string_ok(vstring) == False:
         continue
     ma, mi, rev = vstring.split(".")[0:3]
