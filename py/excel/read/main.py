@@ -4,6 +4,7 @@ import pandas
 with pandas.ExcelFile("test.xlsx") as f:
     print(f.sheet_names)
 
+#keep_default_na=False => empty cells to '' not NaN'
 df = pandas.read_excel("test.xlsx", dtype=str, header=None, sheet_name="Sheet1")
 n_rows = len(df)
 n_cols = len(df.columns)
