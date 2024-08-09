@@ -1,0 +1,34 @@
+#!/bin/bash
+
+
+
+uname | grep -i darwin >/dev/null 2>/dev/null
+mactest=$?
+
+CMD_SED=sed
+CMD_FIND=find
+
+if [[ $mactest = 0 ]]; then
+    CMD_SED=gsed
+    CMD_FIND=gfind
+fi
+
+for X in dialog $CMD_SED $CMD_FIND; do
+    which $X 1>/dev/null 2>/dev/null
+    x_ok=$?
+    if [[ ! $x_ok = "0" ]]; then
+        echo "'$X' is not in your PATH. Missing installation?"
+        exit 1
+    fi
+done
+
+# just a quick dialog example
+
+exec 3>&1
+X=$(dialog --menu "Exec root sh in container..." 0 0 0 `docker ps --format 'table {{.ID}}\t{{.Names}}_{{.Image}}_{{.Ports}}' | $CMD_SED -E 's/ /\t/' | tr ' ' '_' | tr '\t' ' ' | tail -n +2` 2>&1 1>&3)
+Y=$?
+exec 3>&-
+
+if [[ $Y = "0" ]]; then
+    docker exec -it $X /bin/sh
+fi
