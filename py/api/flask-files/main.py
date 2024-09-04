@@ -4,6 +4,7 @@ from werkzeug.utils import secure_filename
 import json
 
 app = Flask(__name__)
+app.config['MAX_CONTEBT_LENGTH'] = 500*1024*1024
 
 @app.route('/', methods=['GET', 'POST'])
 def X():
