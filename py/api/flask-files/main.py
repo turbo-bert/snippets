@@ -22,5 +22,6 @@ def X():
     return """<form method=post enctype=multipart/form-data><input type=file name=thefile /><input type=submit></form>"""
 
 if __name__ == '__main__':
+    # https://flask.palletsprojects.com/en/2.3.x/patterns/fileuploads/
     # http://127.0.0.1:6580/
     app.run(host='127.0.0.1', port=6580, debug=True)
