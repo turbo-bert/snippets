@@ -19,7 +19,7 @@ def X():
                 file.save("TEST")
                 return redirect(request.url)
 
-    return """<form method=post enctype=multipart/form-data><input type=file name=thefile /><input type=submit></form>"""
+    return """<form method=post enctype=multipart/form-data><input style="height: 300px; width: 300px; background-color: darkorange;" type=file name=thefile onchange="form.submit();" /><input type=submit></form>"""
 
 if __name__ == '__main__':
     # https://flask.palletsprojects.com/en/2.3.x/patterns/fileuploads/
