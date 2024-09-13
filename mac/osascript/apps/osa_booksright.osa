@@ -1,0 +1,5 @@
+tell application "System Events" to tell application process "Books.app"
+    key code 124
+    delay 0.5
+end tell
+delay 0.5

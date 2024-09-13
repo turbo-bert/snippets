@@ -1,0 +1,2 @@
+tell application "Books.app" to activate
+delay 0.5
