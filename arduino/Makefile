@@ -17,3 +17,6 @@ init:
 cat:
 	stty -F /dev/ttyUSB0 raw 9600
 	cat /dev/ttyUSB0
+
+libs:
+	ac lib install Servo
