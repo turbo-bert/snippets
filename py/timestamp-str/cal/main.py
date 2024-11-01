@@ -4,7 +4,7 @@ import datetime
 too_day = datetime.datetime.now(datetime.UTC)
 
 #or from string YYYY-MM-DD
-too_day = datetime.datetime.fromisoformat("2012-08-09T00:00:00+0000")
+too_day = datetime.datetime.fromisoformat("2012-08-09T00:00:00+00:00")
 
 
 some_days = [ too_day - datetime.timedelta(days=x) for x in range(7)]
