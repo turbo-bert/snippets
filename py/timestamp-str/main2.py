@@ -12,7 +12,7 @@ def hotspec_seconds(src:str) -> int:
         return res
 
     # (h)ours
-    if src.endswith("m"):
+    if src.endswith("h"):
         res = int(src[:-1])*3600
         return res
 
