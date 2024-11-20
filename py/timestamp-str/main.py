@@ -13,3 +13,10 @@ print(t2.isoformat())
 
 print(int(t1.timestamp()))
 print(int(t2.timestamp()))
+
+
+
+
+
+test = datetime.datetime.fromisoformat("2012-08-09T00:00:00+00:00")
+print(int(test.timestamp()))
