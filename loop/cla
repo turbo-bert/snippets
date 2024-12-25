@@ -1,0 +1,176 @@
+#!/bin/bash
+
+
+# asroot
+# deps: find fallocate losetup mkdir grep ls cryptsetup mkfs.ext4 mount wc
+
+
+IMAGEFILE=$(find . -maxdepth 1 -name "*.img" -type f | head -1)
+CNAME=$(basename "$IMAGEFILE")
+CNAME=${CNAME%%.img}
+CNAMECOUNT=$(find . -maxdepth 1 -name "*.img" -type f | wc -l)
+
+if [[ $CNAMECOUNT = 1 ]]; then
+    echo "OK"
+
+    if [[ "$1" = "u" ]]; then
+        set -x
+        umount "mountpoint-$CNAME"
+        #rmdir "mountpoint-$CNAME"
+        cryptsetup luksClose "$CNAME"
+        losetup -D
+        echo "left loop devices:"
+        losetup -l
+        read
+        exit 0
+    fi
+
+    if [[ "$1" = "m" ]]; then
+        set -x
+        LMP="$(pwd)/mountpoint-$CNAME"
+        LDEV=$(losetup -f)
+        DDEV="/dev/mapper/$CNAME"
+        losetup $LDEV "$CNAME.img"
+        losetup -l
+
+        USE_KEYFILE="0"
+        USE_I="0"
+        if [[ -f keyfile ]]; then
+            KEYFILE_LEN=$(wc -c keyfile | awk '{print $1}')
+            if [[ $KEYFILE_LEN = "0" ]]; then
+                USE_I="1"
+            fi
+        else
+            USE_I="1"
+        fi
+
+
+
+        echo "Opening..."
+        if [[ $USE_I = "1" ]]; then
+            cryptsetup luksOpen $LDEV $CNAME
+        else
+            cryptsetup luksOpen --key-file keyfile $LDEV $CNAME
+        fi
+
+        mount $DDEV "mountpoint-$CNAME"
+        ls -alh "mountpoint-$CNAME"
+        read
+
+        exit 0
+    fi
+
+
+    exit 0
+fi
+
+if [[ $CNAMECOUNT = 0 ]]; then
+    echo "nothing found for image, create one (named 'enc' for example) by running:"
+    echo "fallocate -l 100M enc.img"
+    echo "or right now, by typing for example '1g' ENTER to create enc.img with 1 GB or CTRL-C to abort..."
+    set -x
+    read NEWSIZE
+
+    if [[ -z "$NEWSIZE" ]]; then
+        echo "not proceeding without explicit image size definition, like 500m for example"
+        exit 1
+    fi
+
+    CNAME=enc
+    fallocate -l "$NEWSIZE" "$CNAME.img"
+    LMP="$(pwd)/mountpoint-$CNAME"
+    mkdir -p "$LMP"
+    ls -alh | grep "$CNAME"
+    LDEV=$(losetup -f)
+    DDEV="/dev/mapper/$CNAME"
+    losetup $LDEV "$CNAME.img"
+    losetup -l
+    
+    USE_KEYFILE="0"
+    USE_I="0"
+    if [[ -f keyfile ]]; then
+        KEYFILE_LEN=$(wc -c keyfile | awk '{print $1}')
+        if [[ $KEYFILE_LEN = "0" ]]; then
+            USE_I="1"
+        fi
+    else
+        echo -n foo123 >keyfile
+    fi
+    
+    echo "LUKS Formatting..."
+    if [[ $USE_I = "1" ]]; then
+        cryptsetup luksFormat $LDEV
+    else 
+        cryptsetup luksFormat --batch-mode $LDEV keyfile
+    fi
+    echo "Opening..."
+    if [[ $USE_I = "1" ]]; then
+        cryptsetup luksOpen $LDEV $CNAME
+    else
+        cryptsetup luksOpen --key-file keyfile $LDEV $CNAME
+    fi
+    echo "EXT4..."
+    mkfs.ext4 "$DDEV"
+    mount $DDEV "mountpoint-$CNAME"
+    read
+    exit 0
+fi
+
+if [[ $CNAMECOUNT -gt 1 ]]; then
+    echo "found to many things called .img"
+    exit 1
+fi
+
+exit 0
+
+
+# mount crypted disk from loop file
+
+set -x
+
+# find free loop dev
+LDEV=$(losetup -f)
+
+echo "========================"
+echo "$LDEV"
+echo "========================"
+
+
+LMP="$(pwd)/mp"
+
+
+CNAME="test0"
+
+if [[ -d "$LMP" ]]; then
+    echo local mount point exists already
+    exit 1
+fi
+
+mkdir -p "$LMP"
+
+fallocate -l 100M $CNAME.img
+
+
+losetup $LDEV $CNAME.img
+
+sleep 1
+
+cryptsetup luksFormat $LDEV
+
+sleep 1
+
+cryptsetup luksOpen $LDEV $CNAME
+
+sleep 1
+
+D=/dev/mapper/$CNAME
+#mkfs.ext4 /dev/mapper/test0
+
+mkfs.ext4 $D
+
+mount $D $LMP
+
+
+# umount $LMP
+# cryptsetup luksClose $CNAME
+# losetup -D
