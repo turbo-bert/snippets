@@ -2,7 +2,10 @@ import socket
 import socks
 import requests
 
+
 # ssh -D 127.0.0.1:8000 homer
+# also possible: export http_proxy=socks5://127.0.0.1:8000
+#                export https_proxy=socks5://127.0.0.1:8000
 socks.set_default_proxy(socks.PROXY_TYPE_SOCKS5, '127.0.0.1', 8000)
 socket.socket = socks.socksocket
 
