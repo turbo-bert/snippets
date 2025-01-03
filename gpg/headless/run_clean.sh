@@ -2,3 +2,5 @@
 
 
 rm -fr ghome
+rm -f *.asc
+
