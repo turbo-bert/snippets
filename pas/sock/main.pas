@@ -1,5 +1,6 @@
 program main;
 
+// nc -v -k -l 8000
 uses sockets,errors;
 
 var
