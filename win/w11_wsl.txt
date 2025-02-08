@@ -1,0 +1,2 @@
+rem admin cmd
+wsl --install
