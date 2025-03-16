@@ -13,3 +13,9 @@ I replace the default `tty1` console application with a very simple shell input 
 You would actually have to implement your own cli that actually does something and will be called by `/usr/local/bin/my-getty.sh`.
 
 So this here only gives you the setup. You will have to create your own control application.
+
+
+    systemctl stop userconfig
+    systemctl disable userconfig
+    systemctl mask userconfig
+    systemctl enable getty@tty1
