@@ -37,7 +37,7 @@ if [[ ! -f __main__.py ]]; then
 
 
 cat >__main__.py <<EOF
-import $CM.main as main
+from $CM import main
 
 
 if __name__ == "__main__":

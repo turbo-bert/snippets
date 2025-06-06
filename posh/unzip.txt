@@ -1,0 +1,2 @@
+powershell -command "Expand-Archive -Path FILE.zip -DestinationPath BASEDIR"
+
