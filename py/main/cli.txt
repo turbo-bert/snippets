@@ -1,0 +1,5 @@
+import turbocore
+
+def main():
+    turbocore.cli_this(__name__, 'prefix_')
+    return
