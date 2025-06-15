@@ -1,0 +1,10 @@
+#!/bin/bash
+
+
+
+echo -n "Suche > "
+read NEEDLE
+
+while IFS= read -r F; do
+    grep -l "$NEEDLE" "$F"
+done < PYFILES
