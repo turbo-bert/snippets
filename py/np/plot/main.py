@@ -8,6 +8,10 @@ t=0.12
 f = lambda x: 5*t*(0.2969*np.sqrt(x) - 0.1260 * x - 0.3516*x**2 + 0.2843*x**3-0.1015*x**4)
 y = f(x)
 
+np.savetxt("values.txt", np.column_stack((x,y)), header="x y", fmt="%.6f")
+values = np.loadtxt("values.txt", comments="#")
+loaded_x = values[:,0]
+loaded_y = values[:,1]
 
 
 plt.plot(x,y, color="black")
