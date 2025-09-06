@@ -1,0 +1,23 @@
+Robert Degen
+
+
+Table of Contents
+_________________
+
+1. Prozess Handling
+
+
+1 Prozess Handling
+==================
+
+  ,----
+  | systemctl daemon-reexec
+  `----
+
+  ,----
+  | /etc/systemd/system.conf
+  `----
+
+  ,----
+  | DefaultTimeoutStopSec=10s
+  `----

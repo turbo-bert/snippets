@@ -1,0 +1,13 @@
+* Prozess Handling
+
+#+begin_src 
+systemctl daemon-reexec
+#+end_src
+
+#+begin_src 
+/etc/systemd/system.conf
+#+end_src
+
+#+begin_src 
+DefaultTimeoutStopSec=10s
+#+end_src
