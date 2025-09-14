@@ -40,6 +40,7 @@ if [[ $SCRIPT_MODE == init ]]; then
     ssh $H "echo -en '    AllowTcpForwarding no\\n' >> /etc/ssh/sshd_config.NEWNEW"
     ssh $H "echo -en '    PermitTunnel no\\n' >> /etc/ssh/sshd_config.NEWNEW"
     ssh $H "echo -en '    GatewayPorts no\\n' >> /etc/ssh/sshd_config.NEWNEW"
+    ssh $H "echo -en '    PermitTTY no\\n' >> /etc/ssh/sshd_config.NEWNEW"
     ssh $H "cat /etc/ssh/sshd_config > /etc/ssh/sshd_config.OLDOLD"
     ssh $H "cat /etc/ssh/sshd_config.NEWNEW > /etc/ssh/sshd_config"
     ssh $H "sed -i 's/^PasswordAuthentication no.*//g' /etc/ssh/sshd_config.d/50-cloud-init.conf"
