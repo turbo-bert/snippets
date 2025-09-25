@@ -4,7 +4,7 @@
 
 export MAINT="Robert Degen <robert_degen@web.de>"
 export VERS=0.1
-PKG=${1:-python3-venv-turbo-nighlty}
+PKG=${1:-turbobert-venv-nightly}
 VENV_TARGET=${2:-/py}
 VENV_DEPS_TARGET=${3:-flask,requests,xler8,turbocore,paramiko,dcx,SQLAlchemy,pymongo,PyYAML,tabulate,rich,numpy}
 WORKDIR=/root/build/$PKG
