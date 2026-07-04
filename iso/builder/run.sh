@@ -3,38 +3,32 @@
 
 
 
-D=./tmpcdcontent
+ISOO=cd.iso
 
-rm -f cd.iso
-
-if [[ -d $D ]]; then
-    echo "dir already there $D"
-    exit 1
-fi
-
-mkdir -p $D
-
-for I in "$@"; do
-
-echo "__ $I __"
-
-if [[ -f $I ]]; then
-    cp -a $I $D
+if [[ -z $1 ]]; then
+    echo "$(basename $0) <SRCDIR> <OUT.iso>"
+    exit 0
 fi
 
 
-done
+if [[ ! -z $1 ]]; then
+    D=$1
+fi
+
+if [[ ! -z $2 ]]; then
+    ISOO=$2
+fi
 
 
+rm -f $ISOO
 
 hdiutil makehybrid \
   -iso \
   -udf \
   -joliet \
-  -default-volume-name "CompactDisc" \
-  -o cd.iso \
+  -default-volume-name "DataCD" \
+  -o $ISOO \
   $D
-
 
 
 
@@ -52,3 +46,5 @@ hdiutil makehybrid \
 # virsh change-media wintest sdb /tmp/cd.iso --insert
 
 # virsh change-media wintest sdb /tmp/cd2.iso --update
+
+# virsh domblklist wintest --details | tr -s ' ' | grep -i cdrom | xargs | cut -d ' ' -f 3,4
