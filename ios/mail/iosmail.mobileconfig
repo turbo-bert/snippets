@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+ "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>PayloadType</key>
+  <string>Configuration</string>
+
+  <key>PayloadVersion</key>
+  <integer>1</integer>
+
+  <key>PayloadIdentifier</key>
+  <string>de.irgendwas</string>
+
+  <key>PayloadUUID</key>
+  <string>837caf8a-643f-4e0d-9612-3f3803ae32d8</string>
+
+  <key>PayloadDisplayName</key>
+  <string>iwas2</string>
+
+  <key>PayloadDescription</key>
+  <string>Konfiguriert ein IMAP/SMTP-Mailkonto.</string>
+
+  <key>PayloadOrganization</key>
+  <string>Privatewas</string>
+
+  <key>PayloadContent</key>
+  <array>
+    <dict>
+      <key>PayloadType</key>
+      <string>com.apple.mail.managed</string>
+
+      <key>PayloadVersion</key>
+      <integer>1</integer>
+
+      <key>PayloadIdentifier</key>
+      <string>iwas2</string>
+
+      <key>PayloadUUID</key>
+      <string>8121bd60-cefe-4465-b87c-fc3873f84791</string>
+
+      <key>PayloadDisplayName</key>
+      <string>waswas</string>
+
+      <key>EmailAccountDescription</key>
+      <string>Mein Mailkonto</string>
+
+      <key>EmailAccountType</key>
+      <string>EmailTypeIMAP</string>
+
+      <key>EmailAccountName</key>
+      <string>vorn nachn</string>
+
+      <key>EmailAddress</key>
+      <string>emailaddr</string>
+
+      <key>IncomingMailServerAuthentication</key>
+      <string>EmailAuthPassword</string>
+
+      <key>IncomingMailServerHostName</key>
+      <string>imapserver</string>
+
+      <key>IncomingMailServerPortNumber</key>
+      <integer>993</integer>
+
+      <key>IncomingMailServerUseSSL</key>
+      <true/>
+
+      <key>IncomingMailServerUsername</key>
+      <string>imapuser</string>
+
+      <key>OutgoingMailServerAuthentication</key>
+      <string>EmailAuthPassword</string>
+
+      <key>OutgoingMailServerHostName</key>
+      <string>smtpserver</string>
+
+      <key>OutgoingMailServerPortNumber</key>
+      <integer>465</integer>
+
+      <key>OutgoingMailServerUseSSL</key>
+      <true/>
+
+      <key>OutgoingMailServerUsername</key>
+      <string>smtpuser</string>
+
+      <key>OutgoingPasswordSameAsIncomingPassword</key>
+      <true/>
+    </dict>
+  </array>
+</dict>
+</plist>
